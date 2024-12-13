@@ -1,0 +1,23 @@
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+    <div
+      class="toast show text-bg-{{ toast.type }}"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+      *ngFor="let toast of toasts"
+    >
+      <div class="toast-header bg-{{ toast.type }}">
+        <strong class="me-auto">{{ toast.title }}</strong>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="removeToast(toast.id)"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="toast-body">
+        {{ toast.message }}
+      </div>
+    </div>
+  </div>
+  

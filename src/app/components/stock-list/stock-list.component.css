@@ -1,0 +1,41 @@
+th{
+    padding: 10px 30px;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+td{
+    padding: 15px 30px;
+}
+.active{
+    color: var(--primary-color) !important;
+    font-weight: 500;
+}
+.nav-link{
+    color: lightslategray
+}
+.table-description{
+    max-width: 250px;
+}
+.table-remarks{
+    max-width: 180px;
+}
+.bg-success{
+    background-color: rgba(0, 128, 0, 0.3) !important;
+    color: green;
+}
+.bg-dark-subtle{
+    color: gray;
+}
+.bg-danger{
+    background-color: rgba(255, 0, 0, 0.3) !important;
+    color: red;
+}
+.btn-details{
+    color:var(--primary-color);
+    font-weight: 500;
+    border-color: lightgray;
+}
+::ng-deep .mat-sort-header-container:not(.mat-sort-header-sorted) .mat-sort-header-arrow {
+    opacity: 0.54 !important;
+    transform: translateY(0px) !important;
+  }

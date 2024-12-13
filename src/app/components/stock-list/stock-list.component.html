@@ -1,0 +1,95 @@
+<div class="container-fluid p-0 my-md-4">
+
+    <!-- Title -->
+    <div class="d-flex justify-content-center align-items-center mx-4">
+        <h3 class="primary-text fw-bold text-center">Stock List</h3>
+    </div>
+
+    <hr class=" mb-4">
+
+
+
+    <!-- Search Bar for Mobile View -->
+    <div class="d-block d-md-none mx-4 mb-3">
+        <div class="input-group rounded-4">
+            <span class="input-group-text py-0">
+                <fa-icon class="text-muted" [icon]="faSearch"></fa-icon>
+            </span>
+            <input type="text" class="form-control form-control-sm" placeholder="Search" name="search"
+                [(ngModel)]="search" (ngModelChange)="searchData()" />
+        </div>
+    </div>
+
+
+    <!-- Filters (Tabs) -->
+    <ul class="nav nav-tabs pt-2 mb-3 p-0">
+        <li class="nav-item ms-4">
+            <a class="nav-link" href="#" [ngClass]="{'active bg-light': selectedFilter === 'All'}"
+                (click)="filterTransactions('All', $event)">All</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" [ngClass]="{'active bg-light': selectedFilter === 'Popular'}"
+                (click)="filterTransactions('Popular', $event)">Popular</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" [ngClass]="{'active bg-light': selectedFilter === 'Sold Today'}"
+                (click)="filterTransactions('Sold Today', $event)">Sold Today</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" [ngClass]="{'active bg-light': selectedFilter === 'Sold Total'}"
+                (click)="filterTransactions('Sold Total', $event)">Sold Total</a>
+        </li>
+        <li class="nav-item ms-auto w-25 me-4 d-none d-md-block">
+            <div class="input-group rounded-4">
+                <span class="input-group-text py-0">
+                    <fa-icon class="text-muted" [icon]="faSearch"></fa-icon>
+                </span>
+                <input type="text" class="form-control form-control-sm" placeholder="Search" name="search"
+                    [(ngModel)]="search" (ngModelChange)="searchData()" />
+            </div>
+        </li>
+    </ul>
+
+
+
+
+    <!-- Table -->
+    <div class="table-responsive mx-4 mb-4 border border-muted rounded-4">
+        <table class="table table-hover align-middle m-0">
+            <thead class="bg-secondary">
+                <tr>
+                    <th class="bg-body-secondary">ID</th>
+                    <th class="bg-body-secondary">Name</th>
+                    <th class="bg-body-secondary">Description</th>
+                    <th class="bg-body-secondary">Price</th>
+                    <th class="bg-body-secondary">Quantity</th>
+                    <th class="bg-body-secondary">Created Date</th>
+                    <th class="bg-body-secondary">Modified Date</th>
+                    <th class="bg-body-secondary">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let transaction of stock">
+                    <td class="small">{{ transaction.id }}</td>
+                    <td class="small">{{ transaction.name }}</td>
+                    <td class="small table-description text-muted text-truncate">{{ transaction.description }}</td>
+                    <td class="small">{{ transaction.price | number:'.2' }}</td>
+                    <td class="small">{{ transaction.quantity }}</td>
+                    <td class="small">{{ transaction.createdAt | date: 'yyyy-MM-dd' }}</td>
+                    <td class="small">{{ transaction.modifiedAt | date: 'yyyy-MM-dd' }}</td>
+                    <td class="small">
+                        <!-- <button class="btn btn-details btn-sm" mat-button
+                            (click)="openDialog(transaction)">Details</button> -->
+                    </td>
+                </tr>
+                <tr *ngIf="stock.length == 0">
+                    <td colspan="7" class="text-center p-0">
+                        <div class="alert m-0">No Stock found.</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>

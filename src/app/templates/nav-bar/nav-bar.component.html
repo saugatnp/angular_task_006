@@ -1,0 +1,26 @@
+<div class="sidenav-container d-flex" >
+    <div class="sidenav border border-end rounded-0" *ngIf="showNavbar">
+        <div class="logo mb-4 d-flex justify-content-center">
+            <img src="/assets/images/angular_gradient.png" alt="Logo" class="navbar- w-50">
+        </div>
+        <a href="/stock-list" [ngClass]="{ 'active': isActive('/stock-list') }" class="nav-link rounded-4">
+            <i class="icon fa fa-list-check"></i> Stock List
+        </a>
+        <a href="/item-entry" [ngClass]="{ 'active': isActive('/item-entry') }" class="nav-link rounded-4">
+            <i class="icon fa fa-folder"></i> Item Entry
+        </a>
+        <a href="#" class="nav-link rounded-4" (click)="logout()">
+            <i class="icon fa fa-arrow-right-from-bracket"></i> Logout
+        </a>
+    </div>
+
+    <div class="content p-0">
+        <div class="menu-icon d-md-none d-block" (click)="toggleNavBar()">&#x2630;</div>
+        <div class="page-content">
+            <ng-content>asd</ng-content>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,87 @@
+<div class="container-fluid p-0 ">
+    <!-- Title -->
+    <div class="d-flex justify-content-center align-items-center my-4">
+        <h3 class="primary-text fw-bold">Item&nbsp;Entry</h3>
+    </div>
+
+    <hr class=" mb-4">
+
+    <div class="row">
+
+        <form class="offset-lg-4 offset-md-3 col-md-6 col-lg-4 col-12 p-md-0 p-4" [formGroup]="itemForm"
+            (ngSubmit)="onSubmit()">
+            <div class="">
+                
+                <h4>Item Info</h4>
+
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <textarea id="name" formControlName="name" placeholder="Enter name" rows="4"
+                        [ngClass]="{'is-invalid': itemForm.get('name')?.touched && itemForm.get('name')?.errors?.['required']}"></textarea>
+                    <div class="invalid-feedback text-danger"
+                        *ngIf="itemForm.get('name')?.touched && itemForm.get('name')?.hasError('required')">
+                        Name is required.
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" formControlName="description" placeholder="Enter description" rows="4"
+                        [ngClass]="{'is-invalid': itemForm.get('description')?.touched && itemForm.get('description')?.errors?.['required']}"></textarea>
+                    <div class="invalid-feedback text-danger"
+                        *ngIf="itemForm.get('description')?.touched && itemForm.get('description')?.hasError('required')">
+                        Description is required.
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="">
+                <h4>Stock Details</h4>
+
+
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input id="price" formControlName="price" type="number" placeholder="Enter price"
+                        [ngClass]="{'is-invalid': itemForm.get('price')?.touched && (itemForm.get('price')?.errors?.['required'] || itemForm.get('price')?.hasError('pattern'))}" />
+                    <div class="invalid-feedback text-danger"
+                        *ngIf="itemForm.get('price')?.touched && itemForm.get('price')?.hasError('required')">
+                        Price is required.
+                    </div>
+                    <div class="invalid-feedback text-danger"
+                        *ngIf="itemForm.get('price')?.touched && itemForm.get('price')?.hasError('pattern')">
+                        Price needs to be a number.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <input id="quantity" formControlName="quantity" type="number" placeholder="Enter quantity"
+                        [ngClass]="{'is-invalid': itemForm.get('quantity')?.touched && (itemForm.get('quantity')?.errors?.['required'] || itemForm.get('quantity')?.hasError('pattern'))}" />
+                    <div class="invalid-feedback text-danger"
+                        *ngIf="itemForm.get('quantity')?.touched && itemForm.get('quantity')?.hasError('required')">
+                        Quantity is required.
+                    </div>
+                    <div class="invalid-feedback text-danger"
+                        *ngIf="itemForm.get('quantity')?.touched && itemForm.get('quantity')?.hasError('pattern')">
+                        Quantity needs to be a number.
+                    </div>
+                </div>
+
+
+                
+            </div>
+
+            <div class="form-actions">
+                <button type="button" (click)="onCancel()">Cancel</button>
+                <button type="submit" [disabled]="itemForm.invalid">Submit</button>
+            </div>
+        </form>
+
+
+    </div>
+
+
+</div>

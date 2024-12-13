@@ -1,20 +1,23 @@
 :root {
-    --main-font-family: Roboto, "Helvetica Neue", sans-serif;
-    --primary-color: #392381;
-    --secondary-color: #56c1ff;
-    --font-size-base: 16px;
-    --line-height-base: 1.5;
+  --main-font-family: Roboto, "Helvetica Neue", sans-serif;
+  --primary-color: #392381;
+  --secondary-color: #56c1ff;
+  --font-size-base: 16px;
+  --line-height-base: 1.5;
 }
- html,
- body {
-   height: 100%;
-   overflow: hidden;
-   scroll-behavior: smooth;
- }
- body {
-   margin: 0;
-   font-family: Roboto, "Helvetica Neue", sans-serif;
- }
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
 .primary-text {
-    color: var(--primary-color);
+  color: var(--primary-color);
 }

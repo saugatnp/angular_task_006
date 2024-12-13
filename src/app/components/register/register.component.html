@@ -1,0 +1,123 @@
+<div class="login-container row">
+
+    <!-- welcome message and logo -->
+    <div
+        class="d-md-block d-none col-md-4 col-lg-5 d-flex flex-column justify-content-center align-items-center text-center text-white">
+        <img [src]="'/assets/images/angular_white.png'" class="img-fluid w-25" alt="Icon">
+        <h3>Welcome to Angular Application</h3>
+        <p>This is a demo Register portal !!</p>
+    </div>
+
+
+    <div class="col d-flex flex-column justify-content-center align-items-center">
+        <div class="d-flex justify-content-center align-items-center w-100">
+            <div class="card p-4 rounded-4">
+
+                <div class="row d-flex justify-content-center d-md-none d-block">
+                    <img [src]="'/assets/images/angular_white.png'" class="img-fluid w-25" alt="Icon">
+                </div>
+
+                <h4 class="text-center text-white mb-4">Please Signup to continue.</h4>
+                <form [formGroup]="registerForm" (ngSubmit)="submitregister()" autocomplete="off" novalidate>
+
+
+
+                    <!-- Email Input -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label text-white small">Email</label>
+
+                        <div class="input-group">
+                            <input type="email" id="email" class="form-control" placeholder="Enter Your Email"
+                                formControlName="email"
+                                [ngClass]="{ 'is-invalid': registerForm.get('email')?.touched && registerForm.get('email')?.invalid }" />
+                            <span class="input-group-text ps-3">
+                                <fa-icon [icon]="faUser"></fa-icon>
+                            </span>
+                            <div class="invalid-feedback text-danger"
+                                *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['required']">
+                                Email is required.
+                            </div>
+                            <div class="invalid-feedback"
+                                *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['email']">
+                                Please enter a valid email.
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+                    <!-- Password Input -->
+                    <div class="mb-3">
+                        <label for="password" class="form-label text-white small">Password</label>
+
+                        <div class="input-group">
+                            <input [type]="showPassword ? 'text' : 'password'" id="password" class="form-control"
+                                placeholder="Enter Your Password" formControlName="password"
+                                [ngClass]="{ 'is-invalid': registerForm.get('password')?.touched && registerForm.get('password')?.invalid }" />
+                            <span class="input-group-text">
+                                <fa-icon [icon]="showPassword ? faEye : faEyeSlash"
+                                    (click)="showPassword = !showPassword"></fa-icon>
+                            </span>
+                            <div class="invalid-feedback"
+                                *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.errors?.['required']">
+                                Password is required.
+                            </div>
+                            <div class="invalid-feedback"
+                                *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.errors?.['minlength']">
+                                Password must be at least 6 characters long.
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label text-white small">Confirm Password</label>
+
+                        <div class="input-group">
+                            <input [type]="showPassword ? 'text' : 'password'" id="confirmPassword" class="form-control"
+                                placeholder="Confirm Your Password" formControlName="confirmPassword"
+                                [ngClass]="{ 'is-invalid': registerForm.get('confirmPassword')?.touched && (registerForm.get('confirmPassword')?.invalid || passwordMismatch) }" />
+                            <span class="input-group-text">
+                                <fa-icon [icon]="showPassword ? faEye : faEyeSlash"
+                                    (click)="showPassword = !showPassword"></fa-icon>
+                            </span>
+                            <div class="invalid-feedback"
+                                *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.errors?.['required']">
+                                Password is required.
+                            </div>
+                            <div class="invalid-feedback" *ngIf="passwordMismatch && !registerForm.get('confirmPassword')?.errors?.['required']">
+                                Passwords do not match.
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- register Button -->
+                    <button type="submit" class="btn btn-primary w-100">Sign up</button>
+                </form>
+
+
+                <div class="d-flex align-items-center my-4">
+                    <hr class="flex-grow-1 lighter-bg" />
+                    <span class="mx-2 lighter-bg">or</span>
+                    <hr class="flex-grow-1 lighter-bg" />
+                </div>
+
+
+
+                <!-- Sign Up Link -->
+                <div class="text-center text-white">
+                    <p>Already have an account? <a href="/register" class="text-decoration-none lighter-bg">Login</a>
+                    </p>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
