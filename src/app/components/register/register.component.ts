@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { faEye, faEyeSlash, faUser } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
@@ -41,11 +41,19 @@ export class RegisterComponent {
     confirmPassword: new FormControl('', [Validators.required]),
   }, { validators: this.passwordMatchValidator });
 
+
+  role : string = '';
   constructor(
     private router: Router,
     private auth: AuthService,
     private route: ActivatedRoute
   ) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        const currentRouteData = this.router.routerState.snapshot.root.firstChild?.data;
+        this.role = currentRouteData?.['role'] ?? '';
+      }
+    });
   }
 
 
@@ -58,7 +66,8 @@ export class RegisterComponent {
     if (this.registerForm.valid) {
       const email = this.registerForm.get('email')?.value ?? '';
       const password = this.registerForm.get('password')?.value ?? '';
-      this.auth.checkForDuplicateUserEmail(email, password);
+      const role : string[] = [this.role];
+      this.auth.checkForDuplicateUserEmail(email, password , role);
     } else {
       this.markFormAsTouched();
     }

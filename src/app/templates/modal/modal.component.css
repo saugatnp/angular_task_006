@@ -1,0 +1,17 @@
+.modal-btn{
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+}
+button[type="button"] {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  button[type="submit"] {
+    background-color: #4caf50;
+    color: white;
+  }

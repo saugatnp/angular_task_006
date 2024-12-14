@@ -1,0 +1,104 @@
+<div class="container-fluid p-0 my-md-4">
+
+    <!-- Title -->
+    <div class="d-flex justify-content-center align-items-center mx-4">
+        <h3 class="primary-text fw-bold text-center">Role List</h3>
+    </div>
+
+    <hr class="mb-4">
+
+
+
+    <!-- Search Bar for Mobile View -->
+    <div class="d-block d-md-none mx-4 mb-3">
+        <div class="input-group rounded-4">
+            <span class="input-group-text py-0">
+                <fa-icon class="text-muted" [icon]="faSearch"></fa-icon>
+            </span>
+            <input type="text" class="form-control form-control-sm" placeholder="Search" name="search"
+                [(ngModel)]="search" (ngModelChange)="searchData()" />
+        </div>
+    </div>
+
+
+    <!-- Filters (Tabs) -->
+    <ul class="nav nav-tabs pt-2 mb-3 p-0">
+        <li class="nav-item ms-4">
+            <a class="nav-link" href="#" [ngClass]="{'active bg-light': selectedFilter === 'All'}">All</a>
+        </li>
+
+        <li class="nav-item ms-auto w-25 me-4  d-none d-md-block">
+            <div class="input-group rounded-4">
+                <span class="input-group-text py-0">
+                    <fa-icon class="text-muted" [icon]="faSearch"></fa-icon>
+                </span>
+                <input type="text" class="form-control form-control-sm" placeholder="Search" name="search"
+                    [(ngModel)]="search" (ngModelChange)="searchData()" />
+            </div>
+        </li>
+        <li class="nav-item me-4">
+            <app-modal [title]="'Add Role'" [size]="'md'" [btnText]="'Add new role'">
+                <ng-container *ngTemplateOutlet="roleTemplate"></ng-container>
+            </app-modal>
+        </li>
+    </ul>
+
+
+
+
+    <!-- Table -->
+    <div class="table-responsive mx-4 mb-4 border border-muted rounded-4">
+        <table class="table table-hover align-middle m-0">
+            <thead class="bg-secondary">
+                <tr>
+                    <th class="bg-body-secondary">ID</th>
+                    <th class="bg-body-secondary">Role</th>
+                    <th class="bg-body-secondary">Created At</th>
+                    <th class="bg-body-secondary">Modified At</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let u of role">
+                    <td class="small">{{ u.id }}</td>
+                    <td class="small">{{ u.role }}</td>
+                    <td class="small">{{ u.createdAt | date: 'yyyy-MM-dd' }}</td>
+                    <td class="small">{{ u.modifiedAt | date: 'yyyy-MM-dd' }}</td>
+                </tr>
+                <tr *ngIf="role.length == 0">
+                    <td colspan="7" class="text-center p-0">
+                        <div class="alert m-0">No role found.</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+
+<ng-template #roleTemplate>
+    <form class="" [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+
+        <div class="modal-body newform container-fluid ">
+            <div class="form-group">
+                <label for="role">Role</label>
+                <input id="role" formControlName="role" type="text" placeholder="Enter role"
+                    [ngClass]="{'is-invalid': roleForm.get('role')?.touched && roleForm.get('role')?.errors?.['required']}" />
+                <div class="invalid-feedback text-danger"
+                    *ngIf="roleForm.get('role')?.touched && roleForm.get('role')?.hasError('required')">
+                    Role is required.
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <div class="row">
+                <div class="form-actions">
+                    <button type="button" (click)="cancel()">Cancel</button>
+                    <button type="submit" [disabled]="roleForm.invalid">Submit</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</ng-template>

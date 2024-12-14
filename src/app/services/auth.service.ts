@@ -2,31 +2,34 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { SnackBarService } from './snack-bar.service';
+import { User } from '../models/user.model';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthService {
-   
+
 
     constructor(
-        private http: HttpClient, 
+        private http: HttpClient,
         private router: Router,
         private notifier: SnackBarService
     ) {
 
     }
 
-    
-    checkForDuplicateUserEmail(email: string, password: string){
+
+    checkForDuplicateUserEmail(email: string, password: string, role: string[]) {
         this.http.get('users').subscribe({
             next: (data: any) => {
+                if(data.length > 0){
                 const isDuplicate = data.find((element: any) => element.email === email) !== undefined;
-                if(isDuplicate){
+                if (isDuplicate) {
                     console.log('Email is already registered');
-                }else{
-                    this.registerUser(email, password);
+                } else {
+                    this.registerUser(email, password, role);
                 }
+            }
             },
             error: (error: any) => {
                 console.error('There was an error!', error);
@@ -36,9 +39,9 @@ export class AuthService {
 
 
 
-    registerUser(email: string, unencryptedPassword: string ) {
+    registerUser(email: string, unencryptedPassword: string, role: string[]) {
         const password = btoa(unencryptedPassword);
-        this.http.post('users', { email, password }).subscribe({
+        this.http.post('users', { email, password, role }).subscribe({
             next: (data: any) => {
                 this.notifier.showToast('Action was successful!', 'success', 'Success');
                 this.router.navigateByUrl('/login');
@@ -50,19 +53,19 @@ export class AuthService {
     }
 
 
-    validateUserEmailAndPassword(email: string, unencryptedPassword: string , returnUrl : string) {
+    validateUserEmailAndPassword(email: string, unencryptedPassword: string, returnUrl: string) {
         this.http.get('users').subscribe({
             next: (data: any) => {
                 const user = data.find((element: any) => element.email === email);
-                if(user != undefined){
-                    if(user.password === btoa(unencryptedPassword)){
-                        this.setLoginToken();
+                if (user != undefined) {
+                    if (user.password === btoa(unencryptedPassword)) {
+                        this.setLoginToken(user);
                         this.router.navigateByUrl(returnUrl);
                     }
                     else {
                         this.notifier.showToast('The password you entered is incorrect!!', 'warning', 'warning');
                     }
-                }else{
+                } else {
                     this.notifier.showToast('The user with provided email does not exits!!', 'warning', 'warning');
                 }
             },
@@ -80,12 +83,13 @@ export class AuthService {
     /**
      * Set the login token in local storage
      */
-    setLoginToken() {
+    setLoginToken(user: User) {
         const now = new Date();
         // TODO : change the default role to passed role from user CRUD operation
         const item = {
             value: 'valid-token',
-            roles: ['admin'],
+            roles: user.role,
+            email: user.email,
             expiry: now.getTime() + 3600000
         };
         localStorage.setItem('mock-task-token', JSON.stringify(item));

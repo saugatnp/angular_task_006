@@ -65,7 +65,7 @@
                     <th class="bg-body-secondary">Quantity</th>
                     <th class="bg-body-secondary">Created Date</th>
                     <th class="bg-body-secondary">Modified Date</th>
-                    <th class="bg-body-secondary">Action</th>
+                    <th class="bg-body-secondary text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -77,9 +77,9 @@
                     <td class="small">{{ transaction.quantity }}</td>
                     <td class="small">{{ transaction.createdAt | date: 'yyyy-MM-dd' }}</td>
                     <td class="small">{{ transaction.modifiedAt | date: 'yyyy-MM-dd' }}</td>
-                    <td class="small">
-                        <!-- <button class="btn btn-details btn-sm" mat-button
-                            (click)="openDialog(transaction)">Details</button> -->
+                    <td class="small text-center">
+                        <button class="btn btn-details btn-border-success btn-sm fw-bold mx-2">Sell Item</button>
+                        <button class="btn btn-details btn-border-primary btn-sm fw-bold mx-2">Restock</button>
                     </td>
                 </tr>
                 <tr *ngIf="stock.length == 0">

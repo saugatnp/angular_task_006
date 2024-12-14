@@ -35,11 +35,3 @@ td{
     font-weight: 500;
     border-color: lightgray;
 }
-.btn-border-success{
-    border-color: green;
-    color: green;
-}
-.btn-border-primary{
-    border-color: blue;
-    color: blue;
-}

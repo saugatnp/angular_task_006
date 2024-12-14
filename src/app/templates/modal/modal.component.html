@@ -1,0 +1,13 @@
+<button class="btn btn-sm modal-btn" (click)="triggerModal(nursing)">{{btnText}}</button>
+
+
+<ng-template #nursing let-modal #modal>
+    <div class="modal-header m-0 p-0 bg-blue">
+        <h5 class="white-text m-1" id="modal-basic-title">{{title}}</h5>
+        <button type="button" class="close close btn-sm ms-auto bg-danger" aria-label="Close"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true" class=" text-white">×</span>
+        </button>
+    </div>
+    <ng-content></ng-content>
+</ng-template>
